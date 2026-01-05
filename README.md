@@ -1,71 +1,110 @@
-# Is this login weird? 👾
+# 🍔 Is This Login... *Teddy?* 👷‍♂️
 
-Behavioral login anomaly detection.
+Is this login weird?  
+Behavioral login anomaly detection, Bob's Burgers–style.
 
 ## What this is
-This project explores **behavior-based login anomaly detection** using simple machine learning models.
 
-Instead of asking *"is this malicious?"*, the system learns what **normal login behavior** looks like and highlights events that don't fit the pattern.
+Bob runs a restaurant.  
+He knows his regulars.
 
-Think: defender intuition, but automated.
+This project does the same thing—but for logins.
 
-This is intentionally small, readable, and security‑oriented.
+Instead of asking  
+**"Is this malicious?"**. 
+it asks  
+**"Does this feel like someone who's usually here?"**
+
+The system learns what *normal* login behavior looks like, then points at the stuff that makes Bob squint across the counter.
+
+Small. Readable. Defensive mindset first.
 
 ## Why this exists
-Rule-based auth detection breaks fast:
 
-- Attackers adapt
-- Rules grow brittle
-- Edge cases pile up
+Rule-based auth detection is like Bob writing rules on the wall:
 
-Machine learning helps by learning *patterns* instead of hard rules:
+* "No yelling"
+* "No loitering"
+* "No coming back 12 times an hour"
 
-- Time-of-day habits
-- Location consistency
-- Device familiarity
-- Login velocity
+It works for about five minutes.
 
-When something drifts far from "normal", it gets flagged for review.
+Then:
+
+* Attackers adapt
+* Rules get weirdly specific
+* Edge cases pile up like unwashed dishes
+
+Machine learning helps by learning **patterns**, not commandments:
+
+* When people usually log in
+* Where they usually come from
+* What devices they usually use
+* How fast they usually move
+
+When something *breaks the vibe*, it gets flagged.
 
 ## What the model looks at
-Example features (synthetic or real logs):
 
-- hour\_of\_day
-- country
-- device\_type
-- login\_success
-- sessions\_per\_hour
+Think of these as the things Bob notices without trying:
 
-No PII required. No payload inspection. Just behavior.
+* `hour_of_day` — why are you here at 3am
+* `country` — are you... local
+* `device_type` — phone, desktop, or Linda-on-a-tablet
+* `login_success` — do you know your password or not
+* `sessions_per_hour` — why are you still here
+
+No PII.  
+No payload inspection.  
+Just behavior.
+
+Bob doesn't need your life story — he needs to know if this is normal.
 
 ## How it works (high level)
-1. Ingest login events
-2. Learn baseline behavior
-3. Score new logins by how unusual they are
-4. Surface the weird stuff
+
+1. Logins walk into the restaurant
+2. The model learns what "regular customers" look like
+3. New logins get scored by how fast they stand out
+4. The weird ones get highlighted for review
 
 Models explored:
 
-- Isolation Forest
+* **Isolation Forest** (aka: *How fast would Bob realize this is Teddy?*)
 
 ## What this is *not*
-- ❌ A production auth system
-- ❌ A silver bullet detector
-- ❌ A giant deep learning model
 
-This is a **thinking tool** for blue teamers.
+* ❌ A production auth system
+* ❌ A magic "catch all attackers" button
+* ❌ A giant deep learning monster
 
-## Example question this answers
-"Would *I* trust this login?"
+This is a **thinking tool**.
+
+For blue teamers who want to automate their gut feeling without turning it into 400 brittle rules.
+
+## The question this actually answers
+
+**"Would Bob trust this customer?"**
 
 If the model hesitates, you probably should too.
 
+Flag ≠ block.  
+Weird ≠ malicious.
+
+Sometimes it's just Teddy.  
+Sometimes it's not.
+
 ## Future ideas
-- k-means clustering
-- simple statistical baselines
-- Visualize "normal" vs "weird"
+
+* k-means clustering (grouping regulars vs *characters*)
+* simple statistical baselines (Bob's common sense)
+* visualizing "normal" vs "what are you doing here"
 
 ## Disclaimer
-This project uses synthetic or anonymized data only. No real credentials, no real users.
+
+This project uses **synthetic or anonymized data only**.
+
+No real credentials.  
+No real users.  
+No actual burgers were harmed.
 
 <br>
