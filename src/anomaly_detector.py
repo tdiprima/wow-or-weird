@@ -8,10 +8,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # ============================================
-# 1. GET FAKE DATASET
+# 1. GENERATE FAKE DATASET
 # ============================================
-df = pd.read_csv("../data/logins_raw.csv")
-
 np.random.seed(42)
 n_samples = 5000
 
