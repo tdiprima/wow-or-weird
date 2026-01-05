@@ -1,0 +1,80 @@
+Dataset created: 5003 rows, 3 true anomalies
+
+==================================================
+CONFUSION MATRIX
+==================================================
+[[993   7]
+ [  0   1]]
+
+==================================================
+CLASSIFICATION REPORT
+==================================================
+              precision    recall  f1-score   support
+
+           0       1.00      0.99      1.00      1000
+           1       0.12      1.00      0.22         1
+
+    accuracy                           0.99      1001
+   macro avg       0.56      1.00      0.61      1001
+weighted avg       1.00      0.99      1.00      1001
+
+
+==================================================
+FALSE POSITIVES (7 cases)
+==================================================
+      hour_of_day country device_type  login_success  sessions_per_hour  anomaly_score
+1707            9      UK      tablet          False                  0      -0.673964
+4366            6      UK      tablet          False                  0      -0.682642
+3419            0      US     desktop          False                  2      -0.686578
+2224            0      FR     desktop          False                  4      -0.686889
+1167           13      AU      mobile          False                  7      -0.684962
+4261           20      UK     desktop          False                 10      -0.682031
+2959           19      US      tablet          False                  0      -0.678130
+
+==================================================
+TRUE POSITIVES (1 cases)
+==================================================
+      hour_of_day country device_type  login_success  sessions_per_hour  anomaly_score
+5001            2      CN     desktop          False                 20       -0.73931
+
+==================================================
+FEATURE CONTRIBUTIONS TO ANOMALY DETECTION
+==================================================
+
+--- FALSE POSITIVE EXAMPLE 1 ---
+Row: {'hour_of_day': 9, 'country': 'UK', 'device_type': 'tablet', 'sessions_per_hour': 0}
+Anomaly score: -0.6740
+
+Feature contributions (higher = more suspicious):
+  login_success_encoded: 0.0911
+  device_encoded: 0.0572
+  sessions_per_hour: 0.0276
+  country_encoded: 0.0000
+  hour_of_day: -0.0001
+
+--- TRUE POSITIVE EXAMPLE ---
+Row: {'hour_of_day': 2, 'country': 'CN', 'device_type': 'desktop', 'sessions_per_hour': 20}
+Anomaly score: -0.7393
+
+Feature contributions (higher = more suspicious):
+  login_success_encoded: 0.0642
+  sessions_per_hour: 0.0517
+  hour_of_day: 0.0279
+  country_encoded: 0.0111
+  device_encoded: 0.0108
+
+✅ Visualization saved as 'anomaly_analysis.png'
+
+==================================================
+TESTING NEW LOGIN
+==================================================
+New login: {'hour_of_day': 3, 'country': 'RU', 'device_type': 'desktop', 'sessions_per_hour': 15}
+Anomaly score: -0.7329
+🚨 ANOMALY DETECTED!
+
+Feature contributions:
+  login_success_encoded: 0.0767
+  sessions_per_hour: 0.0603
+  hour_of_day: 0.0205
+  device_encoded: 0.0193
+  country_encoded: 0.0087
