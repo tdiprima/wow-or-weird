@@ -1,6 +1,5 @@
 # 🍔 Is This Login... *Teddy?* 👷‍♂️
 
-Is this login weird?  
 Behavioral login anomaly detection, Bob's Burgers–style.
 
 ## What this is
