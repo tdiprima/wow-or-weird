@@ -1,4 +1,5 @@
 import json
+import operator
 import os
 
 import matplotlib.pyplot as plt
@@ -318,7 +319,7 @@ if len(false_positives) > 0:
     print(f"Anomaly score: {df.loc[fp_idx, 'anomaly_score']:.4f}")
     print("\nFeature contributions (higher = more suspicious):")
     for feat, contrib in sorted(
-        fp_contributions.items(), key=lambda x: x[1], reverse=True
+        fp_contributions.items(), key=operator.itemgetter(1), reverse=True
     ):
         print(f"  {feat}: {contrib:.4f}")
 
@@ -336,7 +337,7 @@ if len(true_positives) > 0:
     print(f"Anomaly score: {df.loc[tp_idx, 'anomaly_score']:.4f}")
     print("\nFeature contributions (higher = more suspicious):")
     for feat, contrib in sorted(
-        tp_contributions.items(), key=lambda x: x[1], reverse=True
+        tp_contributions.items(), key=operator.itemgetter(1), reverse=True
     ):
         print(f"  {feat}: {contrib:.4f}")
 
@@ -471,7 +472,7 @@ new_contributions = analyze_feature_contributions(
 )  # Added X_train_df
 print("\nFeature contributions:")
 for feat, contrib in sorted(
-    new_contributions.items(), key=lambda x: x[1], reverse=True
+    new_contributions.items(), key=operator.itemgetter(1), reverse=True
 ):
     print(f"  {feat}: {contrib:.4f}")
 
@@ -484,7 +485,7 @@ is_anomaly = prediction[0] == -1
 severity = "HIGH" if score[0] < -0.8 else "MEDIUM"
 
 # Top 3 suspicious features
-top_features = sorted(new_contributions.items(), key=lambda x: x[1], reverse=True)[:3]
+top_features = sorted(new_contributions.items(), key=operator.itemgetter(1), reverse=True)[:3]
 
 feature_text = "\n".join(
     [f"• *{feat}*: {contrib:.4f}" for feat, contrib in top_features]
