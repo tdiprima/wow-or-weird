@@ -1,109 +1,52 @@
-# 🍔 Is This Login... *Teddy?* 👷‍♂️
+# Wow or Weird?
 
-Behavioral login anomaly detection, Bob's Burgers–style.
+*"Wow or weird?" — Wagstaff, Bob's Burgers*
 
-## What this is
+A behavior-based login anomaly detection experiment using **Isolation Forest** and scikit-learn.
 
-Bob runs a restaurant.  
-He knows his regulars.
+## The Problem
 
-This project does the same thing—but for logins.
+Security teams drown in login events. Most are normal. A few are sketchy. The challenge: flag the sketchy ones without crying wolf on legitimate users logging in from a coffee shop at 11pm.
 
-Instead of asking  
-**"Is this malicious?"**  
-it asks  
-**"Does this feel like someone who's usually here?"**
+This project explores unsupervised anomaly detection on login data — no labeled attack data required. The model learns what "normal" looks like and surfaces the outliers.
 
-The system learns what *normal* login behavior looks like, then points at the stuff that makes Bob squint across the counter.
+## What It Does
 
-Small. Readable. Defensive mindset first.
+- Generates synthetic login data (5,000+ events) with realistic behavioral patterns
+- Injects known anomalies: off-hours logins, unusual countries, excessive session counts
+- Trains an Isolation Forest to score each login's weirdness
+- Explains *why* a login looks suspicious (feature contribution analysis)
+- Sends a Slack alert when a high-severity anomaly is detected
 
-## Why this exists
+**Features used:** hour of day, country, device type, login success, sessions per hour
 
-Rule-based auth detection is like Bob writing rules on the wall:
+## Quick Start
 
-* "No yelling"
-* "No loitering"
-* "No coming back 12 times an hour"
+```bash
+# Install dependencies
+uv sync
 
-It works for about five minutes.
+# (Optional) Generate standalone CSV data
+python scripts/generate_synthetic_data.py
 
-Then:
+# Run the full detection pipeline
+python src/login_anomaly_detection.py
+```
 
-* Attackers adapt
-* Rules get weirdly specific
-* Edge cases pile up like unwashed dishes
+To enable Slack alerts, set your webhook URL:
 
-Machine learning helps by learning **patterns**, not commandments:
+```bash
+export SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
+```
 
-* When people usually log in
-* Where they usually come from
-* What devices they usually use
-* How fast they usually move
+Output includes a confusion matrix, classification report, false positive breakdown, and `anomaly_analysis.png`.
 
-When something *breaks the vibe*, it gets flagged.
+## Stack
 
-## What the model looks at
+Python · pandas · scikit-learn · matplotlib · Slack Webhooks
 
-Think of these as the things Bob notices without trying:
+## License
 
-* `hour_of_day` — why are you here at 3am
-* `country` — are you... local
-* `device_type` — phone, desktop, or Linda-on-a-tablet
-* `login_success` — do you know your password or not
-* `sessions_per_hour` — why are you still here
-
-No PII.  
-No payload inspection.  
-Just behavior.
-
-Bob doesn't need your life story — he needs to know if this is normal.
-
-## How it works (high level)
-
-1. Logins walk into the restaurant
-2. The model learns what "regular customers" look like
-3. New logins get scored by how fast they stand out
-4. The weird ones get highlighted for review
-
-Models explored:
-
-* **Isolation Forest** (aka: *How fast would Bob realize this is Teddy?*)
-
-## What this is *not*
-
-* ❌ A production auth system
-* ❌ A magic "catch all attackers" button
-* ❌ A giant deep learning monster
-
-This is a **thinking tool**.
-
-For blue teamers who want to automate their gut feeling without turning it into 400 brittle rules.
-
-## The question this actually answers
-
-**"Would Bob trust this customer?"**
-
-If the model hesitates, you probably should too.
-
-Flag ≠ block.  
-Weird ≠ malicious.
-
-Sometimes it's just Teddy.  
-Sometimes it's not.
-
-## Future ideas
-
-* k-means clustering (grouping regulars vs *characters*)
-* simple statistical baselines (Bob's common sense)
-* visualizing "normal" vs "what are you doing here"
-
-## Disclaimer
-
-This project uses **synthetic or anonymized data only**.
-
-No real credentials.  
-No real users.  
-No actual burgers were harmed.
+[MIT](LICENSE)
 
 <br>
