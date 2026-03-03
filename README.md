@@ -30,7 +30,7 @@ uv sync
 python scripts/generate_synthetic_data.py
 
 # Run the full detection pipeline
-python src/login_anomaly_detection.py
+python src/main.py
 ```
 
 To enable Slack alerts, set your webhook URL:
