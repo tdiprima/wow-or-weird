@@ -2,6 +2,8 @@
 
 *"Wow or weird?" — Wagstaff, Bob's Burgers*
 
+Isolation Forest anomaly detection
+
 A behavior-based login anomaly detection experiment using **Isolation Forest** and scikit-learn.
 
 ## The Problem
